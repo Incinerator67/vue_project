@@ -11,7 +11,8 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-btn class="mt-3" color="warning">Upload
+        <v-btn class="mt-3" color="warning">
+          Upload
           <v-icon right dark>mdi-cloud- upload</v-icon>
         </v-btn>
       </v-col>
