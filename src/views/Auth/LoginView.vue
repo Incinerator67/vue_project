@@ -3,7 +3,7 @@
     <v-row justify="center">
     <v-col cols="12" sm="8" lg="6">
       <v-card class="elevetion-12" >
-      <v-toolbar dark color="primary" class="pl-4" @click="onSubmit" :disabled="!valid">
+      <v-toolbar dark color="primary" class="pl-4" @click="onSubmit" :loading="loading" :disabled="!valid || loading">
         Login
       </v-toolbar>
       <v-card-text>
@@ -51,15 +51,18 @@ export default {data () {
   },
   methods: {
 		onSubmit(){
-			if (this.$refs.form.validate()){
-				const user = {
-					email: this.email,
-					password: this.password
-				}
-				console.log(user)
-			}
-		}
-	}
+      if (this.$refs.form.validate()){
+        const user = {
+          email: this.email,
+          password: this.password
+        }
+        this.$store.dispatch('loginUser', user).then(() => {
+          this.$router.push("/")
+        }).catch((err) => {console.log(err.message)})
+      }
+    }
+	},
+  computed: {loading() {return this.$store.getters.loading}}
 } 
 </script>
   
