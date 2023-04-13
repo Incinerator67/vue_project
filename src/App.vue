@@ -42,6 +42,7 @@
       return {
         drawer: false,
         links: [
+          {title:"Home", icon:"mdi-home", url:"/"},
           {title:"Login", icon:"mdi-lock", url:"/login"},
           {title:"Registration",icon:"mdi-face",url:"/registration"},
           {title:"Orders",icon:"mdi-bookmark-multiple-outline",url:"/orders"},
