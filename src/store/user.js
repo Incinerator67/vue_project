@@ -7,7 +7,7 @@ class User {
 }
 
 export default {
-	state: {user: null},
+	state: {user: "edemosmanov2699@gmail.com,123456"},
 	mutations: {
         setUser(state,payload) {
             console.log(payload)
