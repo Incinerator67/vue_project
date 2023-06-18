@@ -51,6 +51,26 @@ export default {
       payload.userId = getters.user != null ? getters.user.id : '1'
     }
   },
+  async updateAd ({commit},{title,desc,id}) {
+    commit('clearError')
+    commit('setLoading', true)
+    //Заглушка запроса
+    let isRequestOk = true
+    let promise = new Promise(function(resolve) {resolve('Done')});
+    if (isRequestOk) {
+      await promise.then(()=> {
+        commit('updateAd',{ title, desc, id})
+        commit('setLoading', false)
+      })
+    } 
+    else {
+      await promise.then(()=> {
+        commit('setLoading', false)
+        commit('setError', 'Ошибка редактирования объявления')
+        throw 'Упс... Ошибка редактирования объявления'
+      })
+    }  
+  },
   getters: {
     ads(state) {return state.ads},
     promoAds(state) {
@@ -89,26 +109,6 @@ export default {
         })
       }
     },
-    async updateAd ({commit},{title,desc,id}) {
-      commit('clearError')
-      commit('setLoading', true)
-      //Заглушка запроса
-      let isRequestOk = true
-      let promise = new Promise(function(resolve) {resolve('Done')});
-      if (isRequestOk) {
-        await promise.then(()=> {
-          commit('updateAd',{ title, desc, id})
-          commit('setLoading', false)
-        })
-      } 
-      else {
-        await promise.then(()=> {
-          commit('setLoading', false)
-          commit('setError', 'Ошибка редактирования объявления')
-          throw 'Упс... Ошибка редактирования объявления'
-        })
-      }
-    }
   }
 }
     
