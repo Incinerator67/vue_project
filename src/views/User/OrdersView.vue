@@ -25,24 +25,14 @@
 </template>
 <script>
 export default {
-  data () {
-    return {
-      orders: [
-        {
-          id:"123",
-          name:"Edem",
-          phone:"+7(978)013-00-05",
-          adId:"1",
-          done:true
-        }
-      ]
-    }
+  data () {return {}
   },
   methods: {
     markDone(order) {
       order.done = !order.done;
       console.log(order.done);
     },
-  }
+  },
+  computed: {ads(){return this.$store.getters.myAds}}
 }
 </script>

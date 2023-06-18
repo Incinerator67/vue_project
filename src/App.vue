@@ -19,6 +19,12 @@
         </template>
         <v-list-item-title>{{ link.title }}</v-list-item-title>
         </v-list-item>
+        <v-list-item @click="onLogout" v-if="isUserLoggedIn">
+          <template v-slot:prepend>
+            <v-icon icon="mdi-exit-to-app"></v-icon>
+          </template>
+          <v-list-item-title>Logout</v-list-item-title>
+        </v-list-item>
     </v-list>
   </v-navigation-drawer>
   <v-app-bar app dark color="primary" :elevation="15">
@@ -31,6 +37,16 @@
     </v-btn>
   </v-toolbar-items>
   </v-app-bar>
+  <v-toolbar-items class="hidden-sm-and-down">
+    <v-btn v-for="link in links" :key="link.title" :to="link.url">
+      <v-icon start :icon="link.icon"></v-icon>
+      {{ link.title }}
+    </v-btn>
+    <v-btn @click="onLogout" v-if="isUserLoggedIn">
+      <v-icon start icon="mdi-exit-to-app"></v-icon>
+      Logout
+    </v-btn>
+  </v-toolbar-items>
   <v-main>
     <router-view></router-view>
   </v-main>
@@ -44,25 +60,30 @@
 </template>
 <script>
   export default {
-    data() {
-      return {
-        drawer: false,
-        links: [
-          {title:"Home", icon:"mdi-home", url:"/"},
-          {title:"Login", icon:"mdi-lock", url:"/login"},
-          {title:"Registration",icon:"mdi-face",url:"/registration"},
-          {title:"Orders",icon:"mdi-bookmark-multiple-outline",url:"/orders"},
-          {title:"New ad", icon:"mdi-note-plus-outline", url:"/new"},
-          {title:"My ads", icon:"mdi-view-list-outline", url:"/list"}
-        ]
+    data() {return {}},
+    methods: {
+      closeError () {this.$store.dispatch('clearError')},
+      onLogout () {
+        this.$store.dispatch('logoutUser')
+        this.$router.push("/")
       }
     },
-    methods: {
-      closeError () {this.$store.dispatch('clearError')}
+    computed: {
+      isUserLoggedIn () {return this.$store.getters.isUserLoggedIn},
+      error () {return this.$store.getters.error},
+      links(){
+        if (this.isUserLoggedIn) {return [
+          {title:"Home", icon:"mdi-home", url:"/"},
+          {title:"Orders",icon:"mdi-bookmark-multiple-outline", url:"/orders"},
+          {title:"New ad", icon:"mdi-note-plus-outline", url:"/new"},
+          {title:"My ads", icon:"mdi-view-list-outline", url:"/list"}
+        ]} 
+        else {return [
+          {title:"Login", icon:"mdi-lock", url:"/login"},
+          {title:"Registration",icon:"mdi-face",url:"/registration"},
+        ]}
+      }
     },
-    computed: {error () {return this.$store.getters.error}
-},
-
   }
 </script>
 

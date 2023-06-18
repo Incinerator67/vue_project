@@ -19,7 +19,7 @@ export default {
             commit('clearError')
             commit('setLoading', true)
             //Здесь выполняется запрос на сервер
-            let isRequestOk = false
+            let isRequestOk = true
             let promise = new Promise(function(resolve) {setTimeout(() => resolve('Done'), 3000);});
             
             if (isRequestOk) {
@@ -56,10 +56,13 @@ export default {
                     throw 'Упс... Ошибка логина или пароля'
                 })
             }
-        }      
+        },
+        logoutUser({commit}) {commit('setUser', null)}     
     },
 	getters: {
-        user(state){return state.user}
+        user(state) {return state.user},
+        isUserLoggedIn (state) {return state.user !== null}, 
     }
+    
 }
 
