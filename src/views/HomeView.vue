@@ -26,7 +26,7 @@
           </v-card-title>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn text :to="'/ad/' + ad.id">Open</v-btn>
+            <v-btn  :to="'/ad/' + ad.id">Open</v-btn>
             <buy-ad-modal :ad="ad"></buy-ad-modal>
           </v-card-actions>
         </v-card>

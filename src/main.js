@@ -4,7 +4,13 @@ import vuetify from './plugins/vuetify'
 import { loadFonts } from './plugins/webfontloader'
 import router from './router'
 import store from './store'
-import BuyAdModal from './views/Shared/BuyAdModal';
+import BuyAdModal from './views/Shared/BuyAdModal'
+
 loadFonts()
 
-createApp(App).use(router).use(store).use(vuetify).mount('#app').mount('#app').component("buy-ad-modal",BuyAdModal)
+createApp(App)
+  .use(router)
+  .use(store)
+  .component("buy-ad-modal",BuyAdModal)
+  .use(vuetify)
+  .mount('#app')
